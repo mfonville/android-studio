@@ -1,0 +1,15 @@
+#!/bin/bash
+
+## Unzip Android Studio's source code
+unzip -qq -o /opt/android-studio-ide.zip -d /opt/
+
+## Remove the package zip package at end
+rm -f /opt/android-studio-ide.zip
+
+## Give permissions to folder to let the built-in update system work
+chmod -R 777 /opt/android-studio/
+
+## Update icon caches
+gtk-update-icon-cache /usr/share/icons/hicolor/scalable/apps/
+update-desktop-database -q
+xdg-desktop-menu forceupdate
