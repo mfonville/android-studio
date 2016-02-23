@@ -8,15 +8,6 @@ Visit the official website [here](http://mfonville.github.io/android-studio)
 Based upon the work of @PaoloRotolo
 
 ##FAQ
-##### Trusty 64-bit compatibility
-**Q:** *I can't correctly build my project on Ubuntu Trusty amd64.*
-
-**A:** Trusty might need an extra 32-bit compatibility library, open a terminal and run:
-
-```
-sudo apt-get install lib32bz2-1.0
-```
-
 ##### Unable to start
 **Q:** *When I click on the icon, Android Studio just doesn't start.*
 **A:** Did you install Java? Try to install Java 8 from [this PPA](http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html).

@@ -7,9 +7,12 @@ unzip -qq -o /opt/android-studio-ide.zip -d /opt/
 rm -f /opt/android-studio-ide.zip
 
 ## Give permissions to folder to let the built-in update system work
-chmod -R 777 /opt/android-studio/
+find /opt/android-studio/ -type d -exec chmod 777 {} \;
+find /opt/android-studio/ -type f -exec chmod 766 {} \;
+find /opt/android-studio/bin/ -type f -name "*.sh" -exec chmod 777 {} \;
+find /opt/android-studio/bin/ -type f -name "fsnotifier*" -exec chmod 777 {} \;
 
 ## Update icon caches
-gtk-update-icon-cache /usr/share/icons/hicolor/scalable/apps/
+gtk-update-icon-cache /usr/share/icons/hicolor/
 update-desktop-database -q
 xdg-desktop-menu forceupdate
