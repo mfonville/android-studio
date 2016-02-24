@@ -25,9 +25,11 @@ case "$c" in
   stable|beta|dev) page="$(wget -O - -q "http://tools.android.com/download/studio/$c" | grep -oE "The current build in the $c channel is[^(]*\(" | sed -n 's/.*a href="\([^"]*\)".*/\1/p')";;
   canary) page="http://tools.android.com/download/studio/canary/latest";;
 esac
-dl="$(wget -O - -q "$page" | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
+dlpage="$(wget -O - -q "$page")"
+dl="$(echo $dlpage | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
 dl=${dl:6:-1}
 ver="$(printf "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
+sha="$(echo $dlpage | grep -oE 'SHA-1 Checksums:.+-linux.zip' | sed -n 's/.*[^>]*>\([0-9a-f]*\) android-studio-ide-'"$ver"'-linux.zip.*/\1/p')"
 
 if [ -z "$ver" ]; then
   echo "Could not parse android-studio webpage"
@@ -36,24 +38,28 @@ fi
 
 echo "#!/bin/bash
 
-## Download Android Studio from Google
+## Download Android Studio from Google (needs wget)
 wget -O /opt/android-studio-ide.zip '$dl'
 
-## We should add SHA1 checksum scan here in the future" > "$TOP/android-studio/debian/preinst"
+## Compare SHA-1 Checksum (needs coreutils)
+sha=\"\$(sha1sum /opt/android-studio-ide.zip)\"
+if [ \"\$sha\" != \"$sha  /opt/android-studio-ide.zip\" ]; then
+  echo 'SHA-1 Checksum mismatch, aborting installation'; rm -f /opt/android-studio-ide.zip; exit 1
+fi" > "$TOP/android-studio/debian/preinst"
 
 echo "Source: android-studio$suf
 Section: devel
 Priority: optional
 Maintainer: Maarten Fonville <maarten.fonville@gmail.com>
-Build-Depends: debhelper (>= 7.0.50~), wget
-Standards-Version: 3.9.5
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.6
 Homepage: http://developer.android.com/tools/studio/index.html
 
 
 Package: android-studio$suf
 Architecture: any
 Suggests: default-jdk
-Pre-Depends: wget
+Pre-Depends: wget, coreutils
 Depends: \${misc:Depends}, java-sdk | oracle-java7-installer | oracle-java8-installer, unzip
 Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64], lib32z1-dev [amd64]$trustydep
 Conflicts: $con
