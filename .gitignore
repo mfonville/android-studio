@@ -4,8 +4,8 @@ android-studio/debian/control
 android-studio/debian/preinst
 
 # Files generated during the debuild and dput process
-android-studio_*.dsc
-android-studio_*.tar*
-android-studio_*.build
-android-studio_*.changes
-android-studio_*.upload
+android-studio*.dsc
+android-studio*.tar*
+android-studio*.build
+android-studio*.changes
+android-studio*.upload
