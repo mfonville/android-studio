@@ -18,4 +18,6 @@ if [ -e /opt/android-studio-ide.zip ]; then
   gtk-update-icon-cache /usr/share/icons/hicolor/
   update-desktop-database -q
   xdg-desktop-menu forceupdate
+  killall unity-scope-home
+  killall unity-scope-loader
 fi
