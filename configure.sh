@@ -14,14 +14,17 @@ esac
 c="$2"
 case "$c" in
   stable)          suf="";;
-  beta|canary|dev) suf="-$2";;
+  beta|dev|canary) suf="-$2";;
   *) echo "Unrecognized release channel, use a valid Android Studio release channel as 2nd argument"; exit 1;;
 esac
 
 con="$(echo "android-studio, android-studio-beta, android-studio-dev, " | sed -e "s/android-studio$suf, //")"
 con=${con::-2}
 
-page="$(wget -O - -q "http://tools.android.com/download/studio/$c" | grep -oE "(The current build in the $c channel is[^(]*\()|(For more information, see[^(]*\()" | sed -n 's/.*a href="\([^"]*\)".*/\1/p')"
+case "$c" in
+  stable|beta|dev) page="$(wget -O - -q "http://tools.android.com/download/studio/$c" | grep -oE "The current build in the $c channel is[^(]*\(" | sed -n 's/.*a href="\([^"]*\)".*/\1/p')";;
+  canary) page="http://tools.android.com/download/studio/canary/latest";;
+esac
 dl="$(wget -O - -q "$page" | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
 dl=${dl:6:-1}
 ver="$(printf "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
