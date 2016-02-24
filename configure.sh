@@ -26,6 +26,11 @@ dl="$(wget -O - -q "$page" | grep -oE 'href="https://dl.google.com/dl/android/st
 dl=${dl:6:-1}
 ver="$(printf "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
 
+if [ -z "$ver" ]; then
+  echo "Could not parse android-studio webpage"
+  exit 1
+fi
+
 echo "#!/bin/bash
 
 ## Download Android Studio from Google
