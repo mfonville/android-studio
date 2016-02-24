@@ -18,7 +18,7 @@ case "$c" in
   *) echo "Unrecognized release channel, use a valid Android Studio release channel as 2nd argument"; exit 1;;
 esac
 
-con="$(echo "android-studio, android-studio-beta, android-studio-dev, " | sed -e "s/android-studio$suf, //")"
+con="$(echo "android-studio, android-studio-beta, android-studio-dev, android-studio-canary, " | sed -e "s/android-studio$suf, //")"
 con=${con::-2}
 
 case "$c" in
