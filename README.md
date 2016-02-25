@@ -31,14 +31,4 @@ at java.lang.Class.initializeClass(libgcj.so.14)
 ##### HiDPI support
 **Q:** *Android Studio looks strange. Some icons and objects are way too small.*
 
-**A:** To fix some of these problems add
-
-`-Dhidpi=true`
-
-to these files:
-
-`/opt/android-studio/bin/studio.vmoptions`
-
-`/opt/android-studio/bin/studio64.vmoptions`
-
-![screenshot from 2014-11-22 17 28 23](https://cloud.githubusercontent.com/assets/5623301/5154769/fbb162a8-726c-11e4-81ce-503a2622bfba.png)
+**A:** You need to use the Android Studio (HiDPI) version on your high resolution screen.
