@@ -28,7 +28,7 @@ esac
 dlpage="$(wget -O - -q "$page")"
 dl="$(echo $dlpage | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
 dl=${dl:6:-1}
-ver="$(printf "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
+ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
 sha="$(echo $dlpage | grep -oE 'SHA-1 Checksums:.+-linux.zip' | sed -n 's/.*[^>]*>\([0-9a-f]*\) android-studio-ide-'"$ver"'-linux.zip.*/\1/p')"
 
 if [ -z "$ver" ]; then
@@ -61,7 +61,7 @@ Architecture: any
 Suggests: default-jdk
 Pre-Depends: wget, coreutils
 Depends: \${misc:Depends}, java-sdk | oracle-java7-installer | oracle-java8-installer, unzip
-Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64], lib32z1-dev [amd64]$trustydep
+Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64]$trustydep
 Conflicts: $con
 Description: Android Studio.
  Android Studio is the official IDE for Android application development, based on IntelliJ IDEA." > "$TOP/android-studio/debian/control"
