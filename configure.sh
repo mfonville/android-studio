@@ -3,6 +3,12 @@ TOP="$(realpath .)"
 export DEBFULLNAME="Maarten Fonville"
 export DEBEMAIL="maarten.fonville@gmail.com"
 
+for t in "wget" "sha1sum"; do
+  if ! command -v $t >/dev/null 2>&1; then
+    echo "$t is required but is not installed."; exit 1
+  fi
+done
+
 d="$1"
 case "$d" in
   trusty) trustydep=", lib32bz2-1.0 [amd64]";;
