@@ -9,10 +9,7 @@ if [ -e /opt/android-studio-ide.zip ]; then
   rm -f /opt/android-studio-ide.zip
 
   ## Give permissions to folder to let the built-in update system work
-  find /opt/android-studio/ -type d -exec chmod 777 {} \;
-  find /opt/android-studio/ -type f -exec chmod 766 {} \;
-  find /opt/android-studio/bin/ -type f -name "*.sh" -exec chmod 777 {} \;
-  find /opt/android-studio/bin/ -type f -name "fsnotifier*" -exec chmod 777 {} \;
+  chmod ugo+rX -R /opt/android-studio
 
   ## Update icon caches
   gtk-update-icon-cache /usr/share/icons/hicolor/
