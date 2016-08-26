@@ -35,7 +35,7 @@ dlpage="$(wget -O - -q "$page")"
 dl="$(echo $dlpage | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
 dl=${dl:6:-1}
 ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
-sha="$(echo "$dlpage" | grep -oE 'SHA-1 Checksums:.+-linux.zip' | sed 's/<[^>]\+>//g' | sed 's/.*mac.zip//g' | sed -n 's/\([0-9a-f]*\).*/\1/p')"
+sha="$(echo "$dlpage" | grep -ozE 'SHA-1 Checksums:.+-linux.zip' | sed 's/<[^>]\+>//g' | sed 's/.*mac.zip//g' | sed -n 's/\([0-9a-f]*\).*/\1/p')"
 
 if [ -z "$ver" ]; then
   echo "Could not parse android-studio webpage"
