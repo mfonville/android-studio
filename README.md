@@ -26,7 +26,7 @@ After configuring you can build the package as usual with `debuild` or `pbuilder
 ##### Unable to start
 **Q:** *When I click on the icon, Android Studio just doesn't start.*
 
-**A:** Did you install Java? Try to install Java 8 from [this PPA](http://www.webupd8.org/2012/09/install-oracle-java-8-in-ubuntu-via-ppa.html).
+**A:** Did you install Java? Try to install [Java Development Kit](http://packages.ubuntu.com/default-jdk) with `sudo apt install default-jdk`.
 
 Also, try:
 ```
