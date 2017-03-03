@@ -3,7 +3,7 @@ TOP="$(realpath .)"
 export DEBFULLNAME="Maarten Fonville"
 export DEBEMAIL="maarten.fonville@gmail.com"
 
-for t in "wget" "sha1sum"; do
+for t in "wget" "sha256sum"; do
   if ! command -v $t >/dev/null 2>&1; then
     echo "$t is required but is not installed."; exit 1
   fi
@@ -35,7 +35,7 @@ dlpage="$(wget -O - -q "$page")"
 dl="$(echo $dlpage | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
 dl=${dl:6:-1}
 ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
-sha="$(echo "$dlpage" | grep -ozE 'SHA-1 Checksums:.+-linux.zip' | sed 's/<[^>]\+>//g' | sed 's/.*mac.zip//g' | sed -n 's/\([0-9a-f]*\).*/\1/p' | tr -d '\n\r')"
+sha="$(echo "$dlpage" | grep -ozE 'SHA-256 Checksums:.+-linux.zip' | sed 's/<[^>]\+>//g' | sed -n 's/\(.*:\)\([0-9a-f]*\)\(.*\)/\2/p' | tr -d '\n\r')"
 
 if [ -z "$ver" ]; then
   echo "Could not parse android-studio webpage"
@@ -47,10 +47,10 @@ echo "#!/bin/bash
 ## Download Android Studio from Google (needs wget)
 wget -O /opt/android-studio-ide.zip '$dl'
 
-## Compare SHA-1 Checksum (needs coreutils)
-sha=\"\$(sha1sum /opt/android-studio-ide.zip)\"
+## Compare SHA-256 Checksum (needs coreutils)
+sha=\"\$(sha256sum /opt/android-studio-ide.zip)\"
 if [ \"\$sha\" != \"$sha  /opt/android-studio-ide.zip\" ]; then
-  echo 'SHA-1 Checksum mismatch, aborting installation'; rm -f /opt/android-studio-ide.zip; exit 1
+  echo 'SHA-256 Checksum mismatch, aborting installation'; rm -f /opt/android-studio-ide.zip; exit 1
 fi" > "$TOP/android-studio/debian/preinst"
 
 echo "Source: android-studio$suf
