@@ -7,22 +7,24 @@ Visit the official website [here](http://mfonville.github.io/android-studio)
 
 Based upon the work of @PaoloRotolo
 
-##How-to
+## How-to
+
 #### Install android-studio
 Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonville/+archive/ubuntu/android-studio)
 
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./configure (trusty|wily|xenial|yakkety) (stable|beta|dev|canary)
+./configure (trusty|xenial|yakkety|zesty) (stable|preview)
 ```
 E.g. if you want to make a package of stable for wily:
 ```
-./configure wily stable
+./configure zesty stable
 ```
 After configuring you can build the package as usual with `debuild` or `pbuilder` in the *android-studio* folder
 
-##FAQ
+## FAQ
+
 ##### Unable to start
 **Q:** *When I click on the icon, Android Studio just doesn't start.*
 
@@ -40,4 +42,3 @@ java.lang.NoClassDefFoundError: com.intellij.util.lang.ClassPath
 at java.lang.Class.initializeClass(libgcj.so.14)
 [...]
 ```
-
