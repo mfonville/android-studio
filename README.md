@@ -15,7 +15,7 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./configure (trusty|xenial|yakkety|zesty) (stable|preview)
+./configure (trusty|xenial|yakkety|zesty|artful) (stable|preview)
 ```
 E.g. if you want to make a package of stable for wily:
 ```
