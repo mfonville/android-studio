@@ -15,11 +15,11 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./configure (trusty|xenial|yakkety|zesty|artful) (stable|preview)
+./configure (trusty|xenial|artful|bionic) (stable|preview)
 ```
-E.g. if you want to make a package of stable for wily:
+E.g. if you want to make a package of stable for bionic:
 ```
-./configure zesty stable
+./configure bionic stable
 ```
 After configuring you can build the package as usual with `debuild` or `pbuilder` in the *android-studio* folder
 
