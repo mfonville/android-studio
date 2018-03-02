@@ -79,6 +79,6 @@ Description: Android Studio.
 
 rm -f "$TOP/android-studio/debian/changelog"
 pushd "$TOP/android-studio" > /dev/null
-dch --create -v "$ver~$d" --package "android-studio$suf" -D "$d" -u low "Updated to $vername ($c)" #also possible to pass -M if you are the maintainer in the control file
+dch --create --force-distribution -v "$ver~$d" --package "android-studio$suf" -D "$d" -u low "Updated to $vername ($c)" #also possible to pass -M if you are the maintainer in the control file
 popd > /dev/null
 echo "android-studio${suf}_$ver~$d"
