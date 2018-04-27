@@ -29,10 +29,12 @@ con="$(echo "android-studio, android-studio-beta, android-studio-dev, android-st
 con=${con::-2}
 
 page="$(wget -O - -q "https://developer.android.com/studio/archive.html")"
+frame="$(wget -O - -q "$(echo "$page" | awk 'BEGIN { RS = "<iframe data-src=\"" ; FS = "\" class" }  {print $1}' | tail -n 1)")"
+
 
 case "$c" in
-  stable) details="$(echo "$page" | awk 'BEGIN { RS = "<section class=\"expandable" ; FS = "</section>" } /stable">.*<div class="downloads".*/  {print $1;exit;}')";;
-  preview)details="$(echo "$page" | awk 'BEGIN { RS = "<section class=\"expandable" ; FS = "</section>" } /<div class="downloads".*/  {print $1;exit;}')";;
+  stable) details="$(echo "$frame" | awk 'BEGIN { RS = "<section class=\"expandable" ; FS = "</section>" } /stable">.*<div class="downloads".*/  {print $1;exit;}')";;
+  preview)details="$(echo "$frame" | awk 'BEGIN { RS = "<section class=\"expandable" ; FS = "</section>" } /<div class="downloads".*/  {print $1;exit;}')";;
 esac
 
 vername="$(echo "$details" | grep -oE '<p class="expand-control">.*' | cut -c 27-)"
