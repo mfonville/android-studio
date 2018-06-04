@@ -51,6 +51,7 @@ fi
 echo "#!/bin/bash
 
 ## Download Android Studio from Google (needs wget)
+mkdir --mode=755 -p /opt
 wget -O /opt/android-studio-ide.zip '$dl'
 
 ## Compare SHA-256 Checksum (needs coreutils)
