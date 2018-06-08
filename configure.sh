@@ -33,12 +33,12 @@ frame="$(wget -O - -q "$(echo "$page" | awk 'BEGIN { RS = "<iframe data-src=\"" 
 
 
 case "$c" in
-  stable) details="$(echo "$frame" | awk 'BEGIN { RS = "<section class=\"expandable" ; FS = "</section>" } /stable">.*<div class="downloads".*/  {print $1;exit;}')";;
-  preview)details="$(echo "$frame" | awk 'BEGIN { RS = "<section class=\"expandable" ; FS = "</section>" } /<div class="downloads".*/  {print $1;exit;}')";;
+  stable) details="$(echo "$frame" | awk 'BEGIN { RS = "all-downloads"; FS="expandable stable" } /class="downloads".*/ {print $2;}')";;
+  preview)details="$(echo "$frame" | awk 'BEGIN { RS = "all-downloads"; FS="expandable\"" } /class="downloads".*/ {print $2;}')";;
 esac
 
-vername="$(echo "$details" | grep -oE '<p class="expand-control">.*' | cut -c 27-)"
-dl="$(echo "$details" | grep -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
+vername="$(echo "$details" | grep -m1 -oE '<p class="expand-control">.*' | cut -c 27-)"
+dl="$(echo "$details" | grep -m1 -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
 dl=${dl:6:-1}
 ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
 sha="$(echo "$details" | sed -n "s/\([0-9a-f]*\) android-studio-ide-$ver-linux.zip/\1/p")"
