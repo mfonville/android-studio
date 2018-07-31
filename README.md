@@ -15,7 +15,7 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./configure (trusty|xenial|artful|bionic) (stable|preview)
+./configure (trusty|xenial|bionic|cosmic) (stable|preview)
 ```
 E.g. if you want to make a package of stable for bionic:
 ```
