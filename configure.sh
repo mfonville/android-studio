@@ -11,8 +11,7 @@ done
 
 d="$1"
 case "$d" in
-  trusty) trustydep=", lib32bz2-1.0 [amd64]";;
-  xenial|bionic|cosmic);;
+  xenial|bionic|cosmic|disco);;
   clean) rm -f "$TOP/android-studio/debian/control" "$TOP/android-studio/debian/changelog" "$TOP/android-studio/debian/changelog.dch" "$TOP/android-studio/debian/preinst"; echo "Android Studio sources cleaned!"; exit 0;;
   *) echo "Unrecognized Ubuntu version, use a valid distribution as 1st argument"; exit 1;;
 esac
@@ -74,7 +73,7 @@ Architecture: any
 Suggests: default-jdk
 Pre-Depends: wget, coreutils
 Depends: \${misc:Depends}, java-sdk | oracle-java7-installer | oracle-java8-installer, unzip
-Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64]$trustydep
+Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64]
 Conflicts: $con
 Description: Android Studio.
  Android Studio is the official IDE for Android application development, based on IntelliJ IDEA." > "$TOP/android-studio/debian/control"
