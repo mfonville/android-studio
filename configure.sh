@@ -37,10 +37,10 @@ case "$c" in
 esac
 
 vername="$(echo "$details" | grep -m1 -oE '<p class="expand-control">.*' | cut -c 27-)"
-dl="$(echo "$details" | grep -m1 -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.zip"')"
+dl="$(echo "$details" | grep -m1 -oE 'href="https://dl.google.com/dl/android/studio/ide-zips/[^"]+-linux.tar.gz"')"
 dl=${dl:6:-1}
-ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.zip/\1/p')"
-sha="$(echo "$details" | sed -n "s/\([0-9a-f]*\) android-studio-ide-$ver-linux.zip/\1/p")"
+ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.tar.gz/\1/p')"
+sha="$(echo "$details" | sed -n "s/\([0-9a-f]*\) android-studio-ide-$ver-linux.tar.gz/\1/p")"
 
 if [ -z "$ver" ]; then
   echo "Could not parse android-studio webpage"
@@ -51,12 +51,12 @@ echo "#!/bin/bash
 
 ## Download Android Studio from Google (needs wget)
 mkdir --mode=755 -p /opt
-wget -O /opt/android-studio-ide.zip '$dl'
+wget -O /opt/android-studio-ide.tar.gz '$dl'
 
 ## Compare SHA-256 Checksum (needs coreutils)
-sha=\"\$(sha256sum /opt/android-studio-ide.zip)\"
-if [ \"\$sha\" != \"$sha  /opt/android-studio-ide.zip\" ]; then
-  echo 'SHA-256 Checksum mismatch, aborting installation'; rm -f /opt/android-studio-ide.zip; exit 1
+sha=\"\$(sha256sum /opt/android-studio-ide.tar.gz)\"
+if [ \"\$sha\" != \"$sha  /opt/android-studio-ide.tar.gz\" ]; then
+  echo 'SHA-256 Checksum mismatch, aborting installation'; rm -f /opt/android-studio-ide.tar.gz; exit 1
 fi" > "$TOP/android-studio/debian/preinst"
 
 echo "Source: android-studio$suf

@@ -1,12 +1,12 @@
 #!/bin/bash
 
 ## Only execute if preinst was succesful
-if [ -e /opt/android-studio-ide.zip ]; then
+if [ -e /opt/android-studio-ide.tar.gz ]; then
   ## Unzip Android Studio's source code
-  unzip -qq -o /opt/android-studio-ide.zip -d /opt/
+  tar -x -z -f /opt/android-studio-ide.tar.gz -C /opt/
 
   ## Remove the package zip package at end
-  rm -f /opt/android-studio-ide.zip
+  rm -f /opt/android-studio-ide.tar.gz
 
   ## Give permissions to folder to let the built-in update system work
   chmod ugo+rX -R /opt/android-studio
