@@ -28,7 +28,7 @@ con="$(echo "android-studio, android-studio-beta, android-studio-dev, android-st
 con=${con::-2}
 
 page="$(wget -O - -q "https://developer.android.com/studio/archive.html")"
-frame="$(wget -O - -q "$(echo "$page" | awk 'BEGIN { RS = "<iframe src=\"" ; FS = "\" class" }  {print $1}' | tail -n 1)")"
+frame="$(wget -O - -q "https://developer.android.com$(echo "$page" | awk 'BEGIN { RS = "<iframe src=\"" ; FS = "\" class" }  {print $1}' | tail -n 1)")"
 
 
 case "$c" in
