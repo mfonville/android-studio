@@ -42,7 +42,7 @@ dl=${dl:6:-1}
 ver="$(echo "$dl" | sed -n 's/.*android-studio-ide-\([0-9\.]*\)-linux\.tar.gz/\1/p')"
 sha="$(echo "$details" | sed -n "s/\([0-9a-f]*\) android-studio-ide-$ver-linux.tar.gz/\1/p")"
 
-if [ -z "$ver" ]; then
+if [ -z "$ver" ] || [ -z "$sha" ]; then
   echo "Could not parse android-studio webpage"
   exit 1
 fi
