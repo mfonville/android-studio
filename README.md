@@ -15,11 +15,11 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./configure (xenial|bionic|disco|eoan) (stable|preview)
+./configure (xenial|bionic|eoan|focal) (stable|preview)
 ```
-E.g. if you want to make a package of stable for disco:
+E.g. if you want to make a package of stable for focal:
 ```
-./configure disco stable
+./configure focal stable
 ```
 After configuring you can build the package as usual with `debuild` or `pbuilder` in the *android-studio* folder
 

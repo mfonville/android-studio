@@ -11,7 +11,7 @@ done
 
 d="$1"
 case "$d" in
-  xenial|bionic|disco|eoan);;
+  xenial|bionic|eoan|focal);;
   clean) rm -f "$TOP/android-studio/debian/control" "$TOP/android-studio/debian/changelog" "$TOP/android-studio/debian/changelog.dch" "$TOP/android-studio/debian/preinst"; echo "Android Studio sources cleaned!"; exit 0;;
   *) echo "Unrecognized Ubuntu version, use a valid distribution as 1st argument"; exit 1;;
 esac
