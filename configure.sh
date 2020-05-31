@@ -59,7 +59,7 @@ if [ \"\$sha\" != \"$sha  /opt/android-studio-ide.tar.gz\" ]; then
   echo 'SHA-256 Checksum mismatch, aborting installation'; rm -f /opt/android-studio-ide.tar.gz; exit 1
 fi" > "$TOP/android-studio/debian/preinst"
 
-echo "Source: android-studio$suf
+echo "Source: android-studio-4.0
 Section: devel
 Priority: optional
 Maintainer: Maarten Fonville <maarten.fonville@gmail.com>
@@ -68,15 +68,22 @@ Standards-Version: 3.9.6
 Homepage: http://developer.android.com/tools/studio/index.html
 
 
-Package: android-studio$suf
+Package: android-studio-4.0
 Architecture: any
 Suggests: default-jdk
 Pre-Depends: wget, coreutils
-Depends: \${misc:Depends}, java-sdk | oracle-java7-installer | oracle-java8-installer, unzip
+Depends: \${misc:Depends}, java-sdk, unzip
 Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64]
-Conflicts: $con
-Description: Android Studio.
- Android Studio is the official IDE for Android application development, based on IntelliJ IDEA." > "$TOP/android-studio/debian/control"
+Conflicts: android-studio-beta, android-studio-dev, android-studio-canary, android-studio-preview, android-studio-3.6
+Description: Android Studio
+ Android Studio is the official IDE for Android application development, based on IntelliJ IDEA.
+
+
+Package: android-studio
+Version: 4.0
+Depends: android-studio-4.0
+Description: Depends on the latest stable Android Studio
+" > "$TOP/android-studio/debian/control"
 
 
 rm -f "$TOP/android-studio/debian/changelog"

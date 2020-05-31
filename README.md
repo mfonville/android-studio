@@ -15,13 +15,26 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./configure (xenial|bionic|eoan|focal) (stable|preview)
+./android-studio-configure (xenial|bionic|eoan|focal) [--stable] [--metapackage] [--major 3.6]
 ```
-E.g. if you want to make a package of stable for focal:
+E.g. to build the latest (unstable) version of Android Studio for Ubuntu focal:
 ```
-./configure focal stable
+./android-studio-configure focal
 ```
-After configuring you can build the package as usual with `debuild` or `pbuilder` in the *android-studio* folder
+To build the latest stable version of Android Studio for Ubuntu focal including a metapackage that depends on this stable release:
+```
+./android-studio-configure focal --stable --metapackage
+```
+To build the latest release of Android 3.6 for Ubuntu eoan:
+```
+./android-studio-configure eoan --major 3.6
+```
+To clean the environment after configuration:
+```
+./android-studio-configure clean
+```
+
+After configuring you can build the package as usual with `debuild` or `pbuilder` in the `android-studio` subdirectory
 
 ## FAQ
 
