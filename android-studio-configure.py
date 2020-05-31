@@ -176,7 +176,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.target == 'clean':
         print('Cleaning configuration...')
-        for f in ['android-studio/debian/control', '/android-studio/debian/changelog', 'android-studio/debian/changelog.dch', 'android-studio/debian/preinst']:
+        for f in ['android-studio/debian/control', 'android-studio/debian/changelog', 'android-studio/debian/changelog.dch', 'android-studio/debian/preinst']:
             if os.path.exists(f):
                 os.remove(f)
         exit(0)
