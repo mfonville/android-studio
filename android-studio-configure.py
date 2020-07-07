@@ -6,6 +6,7 @@ import bs4
 import os
 import re
 import requests
+import shutil
 import subprocess
 
 session = requests.Session()
@@ -103,6 +104,11 @@ class AndroidStudioRelease(object):
 
     def configure(self, distro, conflict_list, try_meta_package):
         try:
+            if self.stable:
+                shutil.copy('androidstudio-stable.svg', 'android-studio/androidstudio.svg')
+            else:
+                shutil.copy('androidstudio-preview.svg', 'android-studio/androidstudio.svg')
+
             with open('android-studio/debian/preinst', 'w+') as preinst:
                 preinst.write('\
 #!/bin/bash\n\
@@ -176,7 +182,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.target == 'clean':
         print('Cleaning configuration...')
-        for f in ['android-studio/debian/control', 'android-studio/debian/changelog', 'android-studio/debian/changelog.dch', 'android-studio/debian/preinst']:
+        for f in ['android-studio/debian/control', 'android-studio/debian/changelog', 'android-studio/debian/changelog.dch', 'android-studio/debian/preinst', 'android-studio/androidstudio.svg']:
             if os.path.exists(f):
                 os.remove(f)
         exit(0)
