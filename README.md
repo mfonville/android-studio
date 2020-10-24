@@ -15,7 +15,7 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./android-studio-configure (xenial|bionic|focal|groovy) [--stable] [--metapackage] [--major 3.6]
+./android-studio-configure (xenial|bionic|focal|groovy|hirsute) [--stable] [--metapackage] [--major 3.6]
 ```
 E.g. to build the latest (unstable) version of Android Studio for Ubuntu focal:
 ```
