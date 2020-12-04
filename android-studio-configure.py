@@ -51,7 +51,7 @@ class ReleasesManager(object):
         return result
 
     def get_major_versions(self):
-        return list(sorted(self.all_releases.keys(), reverse=True))
+        return list(sorted(self.all_releases.keys(), key=lambda major: major.rjust(4, '.').rjust(8, '0'), reverse=True))  # fill old version number scheme with zeroes and a dot in front
 
     def retrieve_releases(self):
         try:
