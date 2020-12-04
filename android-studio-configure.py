@@ -67,9 +67,12 @@ class ReleasesManager(object):
                 if 'stable' in download['class']:
                     stable = True
                 version_name = download.find('p', attrs={'class': 'expand-control'}).contents[0].split('\n')[0]
-                match = re.search('Android Studio ([0-9]\\.[0-9]).*', version_name)
-                if match:
-                    major_version = match.group(1)
+                match_old = re.search('Android Studio ([0-9]\\.[0-9]).*', version_name)
+                match_new = re.search('Android Studio ([0-9]{4}\\.[0-9]\\.[0-9]).*', version_name)
+                if match_old:
+                    major_version = match_old.group(1)
+                elif match_new:
+                    major_version = match_new.group(1)
                 else:
                     continue  # skip this entry
                 download_url_parse = download.find_all('a', attrs={'href': re.compile(r'.*-linux.tar.gz')})
