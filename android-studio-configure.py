@@ -112,6 +112,53 @@ class AndroidStudioRelease(object):
             else:
                 shutil.copy('androidstudio-preview.svg', 'android-studio/androidstudio.svg')
 
+            with open('android-studio/android-studio.desktop', 'w+') as desktop:
+                desktop.write('\
+[Desktop Entry]\n\
+Version=1.0\n\
+Type=Application\n\
+Terminal=false\n\
+Name=Android Studio\n\
+Exec=/opt/android-studio-{0}/android-studio/bin/studio.sh\n\
+Comment=Integrated Android developer tools for development and debugging.\n\
+Icon=androidstudio\n\
+Categories=GNOME;GTK;Development;IDE;\n'.format(self.major_version))
+
+            with open('android-studio/debian/postinst', 'w+') as postinst:
+                postinst.write('\
+#!/bin/bash\n\
+\n\
+## Only execute if preinst was succesful\n\
+if [ -e /opt/android-studio-ide.tar.gz ]; then\n\
+  ## Create a target directory for this major version\n\
+  install -d "/opt/android-studio-{0}"\n\
+  ## Unpack Android Studio\n\
+  tar -x -z -f /opt/android-studio-ide.tar.gz -C "/opt/android-studio-{0}"\n\
+\n\
+  ## Remove the package archive package at end\n\
+  rm -f /opt/android-studio-ide.tar.gz\n\
+\n\
+  ## Give permissions to folder to let the built-in update system work\n\
+  chmod ugo+rX -R "/opt/android-studio-{0}/android-studio"\n\
+\n\
+  ## Update icon caches\n\
+  gtk-update-icon-cache /usr/share/icons/hicolor/\n\
+  update-desktop-database -q\n\
+  xdg-desktop-menu forceupdate\n\
+  exit 0\n\
+fi\n'.format(self.major_version))
+
+            with open('android-studio/debian/postrm', 'w+') as postrm:
+                postrm.write('\
+#!/bin/bash\n\
+\n\
+## Remove the Android Studio folder\n\
+rm -Rf /opt/android-studio-{0}/\n\
+\n\
+## Remove the Legacy Android Studio folder if still present\n\
+rm -Rf /opt/android-studio/\n\
+\n'.format(self.major_version))
+
             with open('android-studio/debian/preinst', 'w+') as preinst:
                 preinst.write('\
 #!/bin/bash\n\
@@ -185,7 +232,14 @@ if __name__ == "__main__":
     args = parser.parse_args()
     if args.target == 'clean':
         print('Cleaning configuration...')
-        for f in ['android-studio/debian/control', 'android-studio/debian/changelog', 'android-studio/debian/changelog.dch', 'android-studio/debian/preinst', 'android-studio/androidstudio.svg']:
+        for f in ['android-studio/debian/control',
+                  'android-studio/debian/changelog',
+                  'android-studio/debian/changelog.dch',
+                  'android-studio/debian/postinst',
+                  'android-studio/debian/postrm',
+                  'android-studio/debian/preinst',
+                  'android-studio/androidstudio.svg',
+                  'android-studio/android-studio.desktop']:
             if os.path.exists(f):
                 os.remove(f)
         exit(0)
