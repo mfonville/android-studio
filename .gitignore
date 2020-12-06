@@ -13,3 +13,4 @@ android-studio*.tar*
 android-studio*.build
 android-studio*.changes
 android-studio*.upload
+android-studio/debian/files

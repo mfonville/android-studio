@@ -154,9 +154,6 @@ fi\n'.format(self.major_version))
 \n\
 ## Remove the Android Studio folder\n\
 rm -Rf /opt/android-studio-{0}/\n\
-\n\
-## Remove the Legacy Android Studio folder if still present\n\
-rm -Rf /opt/android-studio/\n\
 \n'.format(self.major_version))
 
             with open('android-studio/debian/preinst', 'w+') as preinst:
