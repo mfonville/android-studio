@@ -124,6 +124,10 @@ Comment=Integrated Android developer tools for development and debugging.\n\
 Icon=androidstudio\n\
 Categories=GNOME;GTK;Development;IDE;\n'.format(self.major_version))
 
+            with open('android-studio/debian/android-studio-{0}.links'.format(self.major_version), 'w+') as packagelinks:
+                packagelinks.write('\
+opt/android-studio-{0}/android-studio opt/android-studio\n'.format(self.major_version))
+
             with open('android-studio/debian/postinst', 'w+') as postinst:
                 postinst.write('\
 #!/bin/bash\n\
