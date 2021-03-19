@@ -43,7 +43,7 @@ class ReleasesManager(object):
                 print('Major release series not found')
                 return None
             for r in releases:
-                if not result or r.version_number > result.version_number:
+                if not result or r.is_newer_than(result.version_number):
                     if not stable or (stable and r.stable):
                         result = r
             if result:
@@ -68,9 +68,12 @@ class ReleasesManager(object):
                     stable = True
                 version_name = download.find('p', attrs={'class': 'expand-control'}).contents[0].split('\n')[0]
                 match_old = re.search('Android Studio ([0-9]\\.[0-9]).*', version_name)
-                match_new = re.search('Android Studio ([0-9]{4}\\.[0-9]\\.[0-9]).*', version_name)
+                match_interim = re.search('Android Studio ([0-9]{4}\\.[0-9]\\.[0-9]).*', version_name)
+                match_new = re.search('Android Studio .* \\(([0-9]{4}\\.[0-9]\\.[0-9])\\).*', version_name)
                 if match_old:
                     major_version = match_old.group(1)
+                elif match_interim:
+                    major_version = match_interim.group(1)
                 elif match_new:
                     major_version = match_new.group(1)
                 else:
@@ -80,12 +83,15 @@ class ReleasesManager(object):
                     download_url = download_url_parse[0]['href']
                 else:
                     continue  # skip this entry
-                match = re.search('.*/android-studio-ide-([0-9]*\\.[0-9]*)-linux.tar.gz', download_url)
-                if match:
-                    version_number = match.group(1)
+                match_old = re.search('.*/android-studio-ide-([0-9]*\\.[0-9]*)-linux.tar.gz', download_url)
+                match_new = re.search('.*/android-studio-([0-9.]+)-linux.tar.gz', download_url)
+                if match_old:
+                    version_number = match_old.group(1)
+                elif match_new:
+                    version_number = match_new.group(1)
                 else:
                     continue  # skip this entry
-                match = re.search('.*-mac\\.zip\\\\n([0-9a-f]{64}) (android-studio-ide-[0-9.]*-linux\\.tar\\.gz)\\\\n.*', str(download.div.contents))
+                match = re.search('.*-mac\\.zip\\\\n([0-9a-f]{64}) (android-studio-(ide-)?[0-9.]+-linux\\.tar\\.gz)\\\\n.*', str(download.div.contents))
                 if match:
                     sha256sum = match.group(1)
                     filename = match.group(2)
@@ -104,6 +110,20 @@ class AndroidStudioRelease(object):
         self.version_number = version_number
         self.download_url = download_url
         self.sha256sum = sha256sum
+
+    def is_newer_than(self, cmp_version_number):
+        own_version_list = self.version_number.split('.')
+        cmp_version_list = cmp_version_number.split('.')
+        for i in range(0, len(own_version_list)):
+            if i+1 > len(cmp_version_list):  # More sub-numbers in own_version wins
+                return True
+            if own_version_list[i] == cmp_version_list[i]:
+                continue  # Go to next version number in the list
+            elif int(own_version_list[i]) > int(cmp_version_list[i]):
+                return True
+            elif int(own_version_list[i]) < int(cmp_version_list[i]):
+                return False
+        return (len(own_version_list) > len(cmp_version_list))  # In all earlier version numbers were the same, then most sub-numbers in cmp_version wins
 
     def configure(self, distro, conflict_list, try_meta_package):
         try:
