@@ -91,7 +91,7 @@ class ReleasesManager(object):
                     version_number = match_new.group(1)
                 else:
                     continue  # skip this entry
-                match = re.search('.*-mac\\.zip\\\\n([0-9a-f]{64}) (android-studio-(ide-)?[0-9.]+-linux\\.tar\\.gz)\\\\n.*', str(download.div.contents))
+                match = re.search('.*([0-9a-f]{64}) (android-studio-(ide-)?[0-9.]+-linux\\.tar\\.gz)\\\\n.*', str(download.div.contents))
                 if match:
                     sha256sum = match.group(1)
                     filename = match.group(2)
