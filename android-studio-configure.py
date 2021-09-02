@@ -67,6 +67,8 @@ class ReleasesManager(object):
                 if 'stable' in download['class']:
                     stable = True
                 version_name = download.find('p', attrs={'class': 'expand-control'}).contents[0].split('\n')[0]
+                if ' Patch ' in version_name:  # work around because newer "Patch" builds are not explicity marked as stable
+                    stable = True
                 match_old = re.search('Android Studio ([0-9]\\.[0-9]).*', version_name)
                 match_interim = re.search('Android Studio ([0-9]{4}\\.[0-9]\\.[0-9]).*', version_name)
                 match_new = re.search('Android Studio .* \\(([0-9]{4}\\.[0-9]\\.[0-9])\\).*', version_name)
