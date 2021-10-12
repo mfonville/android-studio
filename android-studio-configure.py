@@ -165,7 +165,7 @@ if [ -e /opt/android-studio-ide.tar.gz ]; then\n\
   rm -f /opt/android-studio-ide.tar.gz\n\
 \n\
   ## Give permissions to folder to let the built-in update system work\n\
-  chmod ugo+rX -R "/opt/android-studio-{0}/android-studio"\n\
+  chmod ugo+rX -R "/opt/android-studio-{0}"\n\
 \n\
   ## Update icon caches\n\
   gtk-update-icon-cache /usr/share/icons/hicolor/\n\
