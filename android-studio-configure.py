@@ -157,7 +157,7 @@ opt/android-studio-{0}/android-studio opt/android-studio\n'.format(self.major_ve
 ## Only execute if preinst was succesful\n\
 if [ -e /opt/android-studio-ide.tar.gz ]; then\n\
   ## Create a target directory for this major version\n\
-  install -d "/opt/android-studio-{0}"\n\
+  install -d "/opt/android-studio-{0}" -m "755"\n\
   ## Unpack Android Studio\n\
   tar -x -z -f /opt/android-studio-ide.tar.gz -C "/opt/android-studio-{0}"\n\
 \n\
