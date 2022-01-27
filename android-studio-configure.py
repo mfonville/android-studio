@@ -248,7 +248,7 @@ Description: Depends on the latest stable Android Studio\n\
 if __name__ == "__main__":
     majors = None
     parser = argparse.ArgumentParser(prog='android-studio-configure')
-    parser.add_argument('target', choices=['clean', 'bionic', 'focal', 'hirsute', 'impish', 'jammy'], help='target distro release (or clean)')
+    parser.add_argument('target', choices=['clean', 'bionic', 'focal', 'impish', 'jammy'], help='target distro release (or clean)')
     parser.add_argument('--stable', action='store_true', default=False, help='consider only stable releases')
     parser.add_argument('--metapackage', action='store_true', default=False, help='try to build meta package (if release is stable)')
     parser.add_argument('--major', help='limit to a specific major release serie')

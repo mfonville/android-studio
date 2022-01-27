@@ -15,19 +15,19 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./android-studio-configure (bionic|focal|hirsute|impish|jammy) [--stable] [--metapackage] [--major 3.6]
+./android-studio-configure (bionic|focal|impish|jammy) [--stable] [--metapackage] [--major 3.6]
 ```
 E.g. to build the latest (unstable) version of Android Studio for Ubuntu focal:
 ```
-./android-studio-configure focal
+./android-studio-configure jammy
 ```
 To build the latest stable version of Android Studio for Ubuntu focal including a metapackage that depends on this stable release:
 ```
-./android-studio-configure focal --stable --metapackage
+./android-studio-configure jammy --stable --metapackage
 ```
-To build the latest release of Android 3.6 for Ubuntu eoan:
+To build the latest release of Android 3.6 for Ubuntu focal:
 ```
-./android-studio-configure eoan --major 3.6
+./android-studio-configure focal --major 3.6
 ```
 To clean the environment after configuration:
 ```
