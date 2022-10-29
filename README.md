@@ -15,7 +15,7 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./android-studio-configure (bionic|focal|jammy|kinetic) [--stable] [--metapackage] [--major 3.6]
+./android-studio-configure (bionic|focal|jammy|kinetic|lunar) [--stable] [--metapackage] [--major 3.6]
 ```
 E.g. to build the latest (unstable) version of Android Studio for Ubuntu jammy:
 ```
