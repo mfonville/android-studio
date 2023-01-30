@@ -55,11 +55,14 @@ class ReleasesManager(object):
 
     def retrieve_releases(self):
         try:
-            response = session.get(base_url + '/studio/archive.html')
+            response = session.get(base_url + '/studio/archive')
             page = bs4.BeautifulSoup(response.content, 'lxml')  # or html5lib
             iframe = page.find('devsite-iframe').iframe['src']
 
-            response = session.get(base_url + iframe)
+            if not iframe.startswith('http'):
+                    iframe = base_url + iframe
+
+            response = session.get(iframe)
             page = bs4.BeautifulSoup(response.content, 'lxml')  # or html5lib
             downloads = page.find_all('section', attrs={'class': 'expandable'})
             for download in downloads:
@@ -204,7 +207,7 @@ Priority: optional\n\
 Maintainer: Maarten Fonville <maarten.fonville@gmail.com>\n\
 Build-Depends: debhelper (>= 7.0.50~)\n\
 Standards-Version: 3.9.6\n\
-Homepage: http://developer.android.com/tools/studio/index.html\n\
+Homepage: https://developer.android.com/tools/studio/index.html\n\
 \n\
 \n\
 Package: android-studio-{0}\n\
