@@ -74,7 +74,7 @@ class ReleasesManager(object):
                     stable = True
                 match_old = re.search('Android Studio ([0-9]\\.[0-9]).*', version_name)
                 match_interim = re.search('Android Studio ([0-9]{4}\\.[0-9]\\.[0-9]).*', version_name)
-                match_new = re.search('Android Studio .* \\(([0-9]{4}\\.[0-9]\\.[0-9])\\).*', version_name)
+                match_new = re.search('Android Studio .* ([0-9]{4}\\.[0-9]\\.[0-9]).*', version_name)
                 if match_old:
                     major_version = match_old.group(1)
                 elif match_interim:
