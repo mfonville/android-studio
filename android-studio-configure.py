@@ -170,6 +170,9 @@ if [ -e /opt/android-studio-ide.tar.gz ]; then\n\
   ## Give permissions to folder to let the built-in update system work\n\
   chmod ugo+rX -R "/opt/android-studio-{0}"\n\
 \n\
+  ## Make a symlink for flutter compatibility\n\
+  ln -s "/opt/android-studio-{0}/android-studio/jbr" "/opt/android-studio-{0}/android-studio/jre"\n\
+\n\
   ## Update icon caches\n\
   gtk-update-icon-cache /usr/share/icons/hicolor/\n\
   update-desktop-database -q\n\
