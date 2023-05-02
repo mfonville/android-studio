@@ -217,7 +217,7 @@ Package: android-studio-{0}\n\
 Architecture: any\n\
 Pre-Depends: wget, coreutils\n\
 Depends: ${{misc:Depends}}, unzip\n\
-Recommends: libc6-i386 [amd64], lib32stdc++6 [amd64], lib32gcc1 [amd64], lib32ncurses5 [amd64], lib32z1 [amd64]\n\
+Suggests: libc6-i386 [amd64], lib32z1 [amd64]\n\
 Conflicts: android-studio-beta, android-studio-dev, android-studio-canary, android-studio-preview{1}\n\
 Description: Android Studio\n\
  Android Studio is the official IDE for Android application development, based on IntelliJ IDEA.\n\
