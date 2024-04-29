@@ -15,19 +15,19 @@ Download pre-built packages from our [PPA](https://launchpad.net/~maarten-fonvil
 #### Build android-studio
 Run configure with the parameters for the package you want to build:
 ```
-./android-studio-configure (focal|jammy|mantic|noble) [--stable] [--metapackage] [--major 3.6]
+./android-studio-configure (focal|jammy|noble|oracular) [--stable] [--metapackage] [--major 3.6]
 ```
-E.g. to build the latest (unstable) version of Android Studio for Ubuntu jammy:
+E.g. to build the latest (unstable) version of Android Studio for Ubuntu noble:
 ```
-./android-studio-configure jammy
+./android-studio-configure noble
 ```
-To build the latest stable version of Android Studio for Ubuntu focal including a metapackage that depends on this stable release:
+To build the latest stable version of Android Studio for Ubuntu noble including a metapackage that depends on this stable release:
 ```
-./android-studio-configure jammy --stable --metapackage
+./android-studio-configure noble --stable --metapackage
 ```
-To build the latest release of Android 3.6 for Ubuntu focal:
+To build the latest release of Android 3.6 for Ubuntu noble:
 ```
-./android-studio-configure focal --major 3.6
+./android-studio-configure noble --major 3.6
 ```
 To clean the environment after configuration:
 ```
